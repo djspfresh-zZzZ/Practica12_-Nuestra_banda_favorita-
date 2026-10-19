@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>~ Splatoon 2 ~ Off The Hook</title>
+    <link rel="stylesheet" href="style.css">
+
+  
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html, body {
+            background: linear-gradient(180deg, #0a0518 0%, #0d0824 50%, #080314 100%) !important;
+            color: #f0e6ff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+    
+        .page-neon-frame {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            box-sizing: border-box;
+            border: 8px solid transparent;
+            border-image: linear-gradient(to right, #00f3ff 0%, #00d8ff 35%, #ff007f 65%, #ff1493 100%) 1;
+            background: transparent;
+            box-shadow: 
+                -25px 0 60px rgba(0, 243, 255, 0.6),
+                 25px 0 60px rgba(255, 20, 147, 0.6),
+                inset -20px 0 50px rgba(0, 243, 255, 0.3),
+                inset  20px 0 50px rgba(255, 20, 147, 0.3);
+            animation: concertBreathing 4s infinite ease-in-out;
+        }
+
+        @keyframes concertBreathing {
+            0%, 100% {
+                box-shadow: 
+                    -15px 0 40px rgba(0, 243, 255, 0.45),
+                     15px 0 40px rgba(255, 20, 147, 0.45),
+                    inset -10px 0 30px rgba(0, 243, 255, 0.2),
+                    inset  10px 0 30px rgba(255, 20, 147, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    -35px 0 90px rgba(0, 243, 255, 0.85),
+                     35px 0 90px rgba(255, 20, 147, 0.85),
+                    inset -25px 0 70px rgba(0, 243, 255, 0.5),
+                    inset  25px 0 70px rgba(255, 20, 147, 0.5);
+            }
+        }
+
+     
+        .concert-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .fire-particle {
+            position: absolute;
+            bottom: -20px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: fireFloat 3.5s infinite linear;
+        }
+
+        .fire-particle.aqua {
+            background: #00f3ff;
+            box-shadow: 0 0 12px #00f3ff, 0 0 24px #00d8ff;
+        }
+
+        .fire-particle.pink {
+            background: #ff1493;
+            box-shadow: 0 0 12px #ff1493, 0 0 24px #ff007f;
+        }
+
+        @keyframes fireFloat {
+            0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-105vh) translateX(30px) scale(1.6); opacity: 0; }
+        }
+
+        .fp1 { left: 4%; animation-delay: 0s; animation-duration: 3.2s; }
+        .fp2 { left: 12%; animation-delay: 1.2s; animation-duration: 4s; }
+        .fp3 { left: 22%; animation-delay: 0.5s; animation-duration: 3.5s; }
+        .fp4 { left: 35%; animation-delay: 2s; animation-duration: 3.8s; }
+        .fp5 { right: 4%; animation-delay: 0.8s; animation-duration: 3.4s; }
+        .fp6 { right: 12%; animation-delay: 1.8s; animation-duration: 4.2s; }
+        .fp7 { right: 22%; animation-delay: 0.3s; animation-duration: 3.6s; }
+        .fp8 { right: 35%; animation-delay: 1.5s; animation-duration: 3.9s; }
+
+        .content-wrap {
+            padding: 30px 40px;
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+      
+        p.text-body {
+            font-family: fantasy, sans-serif;
+            font-size: 28px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #d6aaff;
+            text-shadow: 0 0 10px rgba(180, 100, 255, 0.3);
+        }
+
+        .highlight-aqua {
+            color: #00f3ff;
+            font-size: 36px;
+            text-shadow: 0 0 12px rgba(0, 243, 255, 0.5);
+        }
+
+        .highlight-pink {
+            color: #ff007f;
+            font-size: 36px;
+            text-shadow: 0 0 12px rgba(255, 0, 127, 0.5);
+        }
+
+ 
+        .img-card {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        .img-card:hover {
+            transform: scale(1.02);
+        }
+
+
+        .flex-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 35px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .flex-block span, .flex-block p {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        audio {
+            outline: none;
+            border-radius: 30px;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.4), 0 0 15px rgba(255, 0, 127, 0.4);
+            margin: 15px 0;
+            transition: box-shadow 0.3s ease;
+        }
+
+        audio:hover {
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8), 0 0 25px rgba(255, 0, 127, 0.8);
+        }
+
+     
+        .index-menu a {
+            text-decoration: none;
+            margin: 0 15px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<div class="concert-particles">
+    <div class="fire-particle aqua fp1"></div>
+    <div class="fire-particle aqua fp2"></div>
+    <div class="fire-particle aqua fp3"></div>
+    <div class="fire-particle aqua fp4"></div>
+    <div class="fire-particle pink fp5"></div>
+    <div class="fire-particle pink fp6"></div>
+    <div class="fire-particle pink fp7"></div>
+    <div class="fire-particle pink fp8"></div>
+</div>
+
+
+<div class="page-neon-frame">
+<div class="content-wrap">
+
+
+    <div style="width: 100%; max-height: 500px; overflow: hidden; border-radius: 16px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);">
+      <img src="XDDDDDDD.jpe" alt="Banner Splatoon" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
+    </div>
+
+  
+    <h1 id="OFFF" style="text-align: center; font-family: sans-serif; font-size: 55px; margin-top: 30px;">
+        <b><span style="color: #b388ff; text-shadow: 0 0 10px #b388ff;">~</span><span style="color: aqua; text-shadow: 0 0 10px aqua;">S</span><span style="color: #ff1493; text-shadow: 0 0 10px #ff1493;">plat</span><span style="color: aqua; text-shadow: 0 0 10px aqua;">oon</span> <span style="color: #ff1493; text-shadow: 0 0 10px #ff1493;">2</span> <span style="color: #b388ff; text-shadow: 0 0 10px #b388ff;">~</span><span style="color: aqua; text-shadow: 0 0 10px aqua;">Off</span> <span style="color: #ff1493; text-shadow: 0 0 10px #ff1493;">The</span> <span style="color: aqua; text-shadow: 0 0 10px aqua;">Hook</span><span style="color: #b388ff; text-shadow: 0 0 10px #b388ff;">~</span></b>
+    </h1>
+
+    <audio id="bg-music" loop>
+        <source src="Color Pulse - Splatoon 2 [Off the Hook].mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+    var audio = document.getElementById('bg-music');
+    document.addEventListener('click', function() {
+        if (audio.paused) { audio.play(); }
+    }, { once: true });
+
+    document.addEventListener('play', function(e) {
+        if (e.target !== audio) audio.muted = true;
+    }, true);
+
+    document.addEventListener('pause', function(e) {
+        if (e.target !== audio) audio.muted = false;
+    }, true);
+
+    document.addEventListener('ended', function(e) {
+        if (e.target !== audio) audio.muted = false;
+    }, true);
+    </script>
+
+    <br>
+
+    <div style="text-align: center;">
+        <img src="Logo OTH.png" alt="Logo Off the Hook" class="img-card" style="max-width: 400px;">
+    </div>
+
+    <br>
+
+   
+    <p class="text-body">
+        <span>Off the Hook (conocidas en español como Cefalopop) no es solo un dúo musical; es el fenómeno cultural definitivo que redefinió el sonido de Cromópolis y revolucionó la escena del pop urbano a nivel mundial. Con una química explosiva que fusiona el rap underground más puro con el electropop de vanguardia, este dúo compuesto por la indomable inkling Pearl (Perla) y la brillante octoling Marina ha roto todas las barreras de la industria musical, consolidándose como verdaderas leyendas vivas de la cultura cefalópoda.</span>
+        <br><br>
+        <span class="highlight-aqua"><b>~Los Orígenes: El choque de dos mundos~</b></span>
+        <br>
+        <span>Para entender la magnitud de su éxito, hay que entender de dónde vienen. Pearl, nacida en una cuna de oro pero con un alma rebelde e incorregible, comenzó su carrera en la escena del death metal. Su voz, capaz de alcanzar decibelios destructivos (literalmente capaces de demoler estructuras), no encontraba su lugar hasta que conoció a Marina. Marina, por su parte, traía consigo un trasfondo misterioso y una genialidad técnica sin precedentes en el diseño de sintetizadores y producción musical. <br>
+        Cuando estas dos fuerzas de la naturaleza colisionaron, no solo crearon música: inventaron un nuevo estilo de vida. El contraste visual y sonoro —la actitud descarada, ruda y diminuta de Pearl frente a la elegancia tecnológica, la timidez magnética y la calidez vocal de Marina— se convirtió instantáneamente en su sello de identidad.</span>
+        <br><br>
+        <span class="highlight-aqua"><b>~El Sonido: Energía pura en el escenario~</b></span>
+        <br>
+        <span>Ver a Off the Hook en vivo es una experiencia que te tiñe el alma. Sus conciertos no son simples espectáculos; son batallas de rap de alta intensidad combinadas con raves futuristas. <br>
+        - La dinámica: Marina lanza bases con ritmos hiperactivos que mezclan el glitch-hop, el future bass y un pop sintetizado increíblemente adictivo. Sobre esa pared de sonido, Pearl entra como un huracán, escupiendo rimas veloces con una actitud callejera que electrifica a las masas. <br>
+        - El mensaje: Sus letras celebran la libertad, la autoexpresión y, por supuesto, la adrenalina de los combates territoriales. <br>
+        Temas icónicos como "Color Pulse" o "Ebb & Flow" se convirtieron en los himnos oficiales de toda una generación, sonando en cada rincón de la plaza y motivando a miles de jóvenes a darlo todo en la arena.</span>
+        <br><br>
+        <span class="highlight-aqua"><b>~El Impacto Cultural: ¡No os andéis con miramientos!~</b></span>
+        <br>
+        <span>Más allá de las listas de éxitos, Off the Hook se apoderó de los corazones de Cromópolis como las presentadoras oficiales del festival más importante de nuestra era: el Splatfest. Con su ya legendario lema de despedida, "Don't get cooked... Stay off the hook!" ("¡No os andéis con miramientos, y seguid muy atentos!"), el dúo demostró que tenía el carisma necesario para unir a las masas, dictando las tendencias de moda, opinión y música durante años. <br>
+        Su consagración definitiva llegó durante el histórico concierto en el Clam Blitz, donde su música sirvió de puente cultural y emocional, demostrando que el arte tiene el poder de sanar viejas rivalidades y unir a diferentes especies bajo un mismo compás hiperactivo. Off the Hook no sigue las tendencias musicales: las crea, las destruye y las vuelve a pintar con los colores más brillantes del panorama actual.</span>
+    </p>
+      <br><br><br><br><br><br><br><br><br>
+      
+      <div style="justify-content: center;  align-items: center;">
+      <video src="Splatoon 2 - Off the Hook introduction.mp4" controls loop style="border-radius: 30px; box-shadow:  0 0 20px #c662ff;  transition: transform 0.4s ease;  "  onmouseover=" this.style.transform= 'scale(1.3)';   "   onmouseout="this.style.transform= 'scale(1)'; "  ></video>
+      </div>
+      
+      <br><br><br><br><br><br><br><br><br><br>
+
+ 
+    <div style="text-align: center;">
+        <img src="Indice.png" alt="Índice" class="img-card" style="max-width: 350px;">
+    </div>
+    <br>
+
+    <div class="index-menu" style="text-align: center;">
+        <a href="#Personajes">
+            <button class="fx-neon" style="cursor: pointer;"><span style="font-family: fantasy; font-size: 45px;">Personajes</span></button>
+        </a>
+        <a href="#Historia">
+            <button class="fx-neon3" style="cursor: pointer;"><span style="font-family: fantasy; font-size: 45px;">Historia</span></button>
+        </a>
+        <br><br>
+        <a href="#Canciones">
+            <button class="fx-neon2" style="cursor: pointer;"><span style="font-family: fantasy; font-size: 45px;">Canciones</span></button>
+        </a>
+    </div>
+
+    <br><br><br><br>
+
+
+    <div id="Personajes" style="text-align: center; padding-top: 40px;">
+        <img src="Personajes.png" alt="Personajes" class="img-card">
+    </div>
+
+    <br><br>
+
+    <div>
+        <h2 style="font-size: 55px; font-family: fantasy; color: #b388ff; text-align: center; text-shadow: 0 0 15px #b388ff;">~MARINA IDA~</h2> 
+        <div style="text-align: right;"><img src="logo marina.png" alt="Logo Marina" width="200px"></div>
+        <br>
+
+        <div style="width: 100%; display: block;">
+          <img src="S2_Marina_render.png" alt="Marina Render" style="float: left; width: 420px; margin-right: 35px; margin-bottom: 25px; height: auto; display: block;" class="img-card">
+
+          <p class="text-body" style="color: #a3e5ff;">
+            <span>
+              Marina Ida es uno de los personajes más icónicos de Splatoon, conocida por ser la brillante mente musical del dúo Off the Hook (Cefalopop) junto a su inseparable compañera Pearl (Perla). Como una talentosa Octoling, ha logrado conquistar la superficie gracias a su inmenso amor por la música y el arte.<br><br>
+
+              Su diseño destaca por sus icónicos tentáculos marrón oscuro con puntas verde azulado brillante (teal) y un estilo urbano hip-hop impecable. Aunque en público suele mostrarse reservada, modesta y muy dulce, detrás de los escenarios es una auténtica genio de la ingeniería y la informática, diseñando desde complejos escenarios para los Splatfests hasta entornos virtuales avanzados.<br><br>
+
+              Dentro del grupo, Marina toma el rol de productora y DJ. Mientras Pearl desata rimas veloces, ella se encarga de crear las suaves melodías vocales y los ritmos electrónicos digitales con su teclado y tornamesa, componiendo los grandes himnos que unen a toda la ciudad.<br><br>
+
+              ¡Atención, habitantes de Inkopolis! ¡Preparen sus tentáculos porque la escena musical está a punto de estallar con un ritmo totalmente nuevo!<br><br>
+              
+              Desde lo más profundo del circuito underground llega el dúo que va a revolucionar las noticias de la plaza y los escenarios del Splatfest. Hoy tenemos el honor de presentarles a la mitad más dulce, talentosa y cerebral de Off the Hook: ¡recibamos con un fuerte aplauso a la inigualable Marina!<br><br>
+              
+              Marina no es una artista común y corriente; es una verdadera fuerza de la naturaleza musical. Con su estilo urbano impecable, sus auriculares siempre listos y una sonrisa que ilumina toda la pantalla, ha llegado para adueñarse de los corazones de toda la ciudad. Pero no se dejen engañar por su timidez, porque cuando se para frente a las consolas, ¡se transforma por completo!<br><br>
+              
+              Ella es la mente maestra detrás de los ritmos digitales de la banda y la voz melódica que equilibra a la perfección el rap de Pearl. Aunque a veces se muestre un poco tímida en el escenario, su genialidad musical habla por sí sola. ¿Están listos para escuchar el sonido del futuro? ¡Manténganse sintonizados y no le quiten el ojo de encima a Marina y a Off the Hook!
+            </span>
+          </p>
+
+          <div style="clear: both;"></div>
+        </div>
+
+        <br><br>
+
+        <h2 style="font-size: 55px; font-family: fantasy; color: #ff007f; text-align: center; text-shadow: 0 0 15px #ff007f;">~PERLA HOUZUKI~</h2> 
+        <div style="text-align: left;"><img src="Logo perla.png" alt="Logo Perla" width="200px"></div>
+        <br>
+
+        <div style="width: 100%; display: block;">
+          <img src="S2_Pearl_render.png" alt="Pearl Render" style="float: right; width: 420px; margin-left: 35px; margin-bottom: 25px; height: auto; display: block;" class="img-card">
+
+          <p class="text-body" style="color: #ffb3da;">
+            <span>
+              No se dejen engañar por su estatura, porque Perla tiene el tamaño de un calamar promedio pero la potencia de un Kraken en pleno ataque. Ella es pura dinamita, actitud rebelde y estilo sin filtros. Junto a su compañera Marina, viene a demostrar que el pop tradicional quedó en el pasado y que Off the Hook llegó para imponer sus propias reglas.<br><br>
+
+              ¿Quieren saber por qué Pearl va a ser tu nueva obsesión en la música? ¡Aquí tienen las pruebas!<br><br>
+
+              • Rimas Explosivas a la Velocidad de la Luz: Perla es una MC con un talento natural para el rap. Sus versos son rápidos, agresivos y llenos de una confianza arrolladora que te pondrá a saltar desde la primera nota.<br><br>
+
+              • La Voz Más Potente de la Ciudad: Dicen los rumores en el estudio que cuando Perla grita al micrófono sin modulador, ¡puede hacer vibrar las ventanas de toda Inkopolis! Su potencia vocal es simplemente de otra galaxia.<br><br>
+
+              • Estilo Urbano y Realeza Callejera: Con su icónica corona dorada, su vestido blanco con detalles rosa brillante y esa mirada desafiante, Perla no sigue las tendencias... ¡las crea! Su estilo grita lujo, rebeldía y mucha personalidad.<br><br>
+
+              Aunque a veces parezca un poco ruda o presuma demasiado, Perla tiene un corazón enorme y una lealtad absoluta hacia su música y sus fans. ¡Ella no viene a pedir permiso, viene a reclamar el trono de Inkopolis!
+            </span>
+          </p>
+
+          <div style="clear: both;"></div>
+        </div>
+    </div>
+
+    <br><br><br><br>
+
+  
+    <div id="Canciones" style="text-align: center; padding-top: 40px;">
+        <img src="2.jpe.png" alt="Canciones" class="img-card">
+    </div>
+
+    <br><br>
+
+ 
+    <h2 style="color: #00f3ff; font-family: fantasy; font-size: 45px; text-align: center; text-shadow: 0 0 10px #00f3ff;">¡Now or Never!</h2>
+    <div style="text-align: center;">
+        <audio src="Now or Never! - [Off the Hook].mp3" loop controls></audio>
+    </div>
+    <p class="text-body" style="text-align: center;">
+        Now or never es una de las canciones que cantan Marina y Perla especialmente en los Splatfests en los que ellas realizan, cantándola cuando el tiempo de las batallas territoriales está a punto de llegar a su fin. La cantan al faltar 1 minuto restante para concluir la batalla y dar paso a los resultados. ¡Esta canción es un cover de la famosísima versión de Now or Never de Squid Squad de Splatoon 1!
+    </p>
+
+    <br><br>
+
+
+    <h2 style="color: #00f3ff; font-family: fantasy; font-size: 45px; text-align: center; text-shadow: 0 0 10px #00f3ff;">Shark Bytes</h2>
+    <div style="text-align: center;">
+        <audio src="Shark Bytes - [Off the Hook].mp3" loop controls></audio>
+    </div>
+    <p class="text-body" style="text-align: center;">
+        Shark Bytes (conocida en español como Aletazos) es una de las canciones más intensas y destacadas del DLC Splatoon 2: Octo Expansion. Suena como tema de fondo durante las desafiantes batallas contra los jefes finales en el Tramo Maestro. Interpretada por Off the Hook, la pista fusiona un estilo drum and bass frenético con el rap rápido de Pearl y los coros sintetizados de Marina.
+    </p>
+
+    <br><br>
+
+
+    <h2 style="color: #00f3ff; font-family: fantasy; font-size: 45px; text-align: center; text-shadow: 0 0 10px #00f3ff;">Nasty Majesty</h2>
+    <div style="text-align: center;">
+        <audio src="Nasty Majesty - [Off the Hook].mp3" loop controls></audio>
+    </div>
+    <p class="text-body" style="text-align: center;">
+        Nasty Majesty es una de las canciones más icónicas de Cefalopop y el tema principal de la Octo Expansión. Musicalmente destaca por combinar un ritmo electrónico oscuro y misterioso a cargo de Marina con el rap agresivo de Perla, marcando el choque cultural entre la superficie y el mundo subterráneo de los Octarianos.
+    </p>
+
+    <br><br>
+
+    <h2 style="color: #00f3ff; font-family: fantasy; font-size: 45px; text-align: center; text-shadow: 0 0 10px #00f3ff;">Fly Octo Fly</h2>
+    <div style="text-align: center;">
+        <audio src="Fly Octo Fly ~ Ebb & Flow (Octo) - [Off the Hook].mp3" loop controls></audio>
+    </div>
+    <p class="text-body" style="text-align: center;">
+        Fly Octo Fly es el tema musical más épico de Off the Hook y suena durante la batalla final de la Octo Expansión. Es un pop electrónico frenético que representa la libertad y el deseo de los Octolings de salir a la superficie, fusionándose de manera magistral con "Ebb & Flow" en el clímax del combate.
+    </p>
+
+    <br><br>
+
+
+    <h2 style="color: #00f3ff; font-family: fantasy; font-size: 45px; text-align: center; text-shadow: 0 0 10px #00f3ff;">Into the Light</h2>
+    <div style="text-align: center;">
+        <audio src="into the Light - [Off the Hook].mp3" loop controls></audio>
+    </div>
+    <p class="text-body" style="text-align: center;">
+        "Into the Light" ("Hacia la luz") es el tema de cierre que suena durante los créditos finales de la Octo Expansión. Ofrece un pop electrónico mucho más relajado, melancólico y reconfortante que simboliza la libertad y el nuevo comienzo del Agente 8 bajo el sol de Inkopolis.
+    </p>
+
+    <br><br>
+
+
+    <h2 style="color: #00f3ff; font-family: fantasy; font-size: 45px; text-align: center; text-shadow: 0 0 10px #00f3ff;">~Ebb & Flow~</h2>
+    <div style="text-align: center;">
+        <audio src="♪ Ebb & Flow ♫ Caitlin Koi Lyric Video - Splatoon 2.mp3" loop controls></audio>
+    </div>
+    <p class="text-body" style="text-align: center;">
+        "Ebb & Flow" alude al flujo y reflujo constante de la marea, sirviendo como la metáfora perfecta para el combate territorial de los Splatfests. Representa la unión inquebrantable entre Perla y Marina, siendo la primera canción que compuso Marina tras llegar a la superficie.
+    </p>
+
+    <br><br><br><br>
+
+    <div id="Historia" style="text-align: center; padding-top: 40px;">
+        <img src="Historia.png" alt="Historia" class="img-card">
+    </div>
+
+    <br><br>
+
+    <p class="text-body" style="text-align: center;">
+        La historia de Off the Hook (Cefalopop) comenzó a gestarse un par de años antes de los acontecimientos ocurridos en la plaza de Cromópolis.
+    </p>
+
+    <h2 style="font-size: 45px; font-family: fantasy; color: aquamarine; text-align: center; text-shadow: 0 0 10px aquamarine;">~El encuentro en el Monte Molusco~</h2> 
+    <div class="flex-block">
+        <p class="text-body">Todo dio inicio en los terrenos desolados del Monte Molusco (Mount Nantai) donde una impulsiva y adinerada Inkling llamada Perla pasaba los días practicando sus demoledores y caóticos gritos vocales. En ese mismo lugar apareció de la nada Marina, una joven Octoling ingeniera militar que acababa de desertar del ejército octariano tras quedar maravillada escuchando la mítica melodía de las Calamarciñas. Aunque no hablaban el mismo idioma, la música funcionó como su lenguaje universal.</p>
+        <img src="Mount_nantai_and_lake_chuzenji.jpg" alt="Mount Nantai" class="img-card" style="max-height: 400px;">
+    </div>
+
+    <h2 style="font-size: 45px; font-family: fantasy; color: aquamarine; text-align: center; text-shadow: 0 0 10px aquamarine;">~La edad del primer contacto~</h2> 
+    <p class="text-body">Al momento de cruzarse en la montaña, Perla tenía 19 años mientras que Marina tenía apenas 16 años, desmitificando la creencia popular de que la alta Octoling era la mayor. Durante dos semanas, Marina regresó al Monte Molusco todos los días seguidos con la esperanza de volver a encontrarse con esa extraña chica de voz destructiva.</p>
+
+    <h2 style="font-size: 45px; font-family: fantasy; color: aquamarine; text-align: center; text-shadow: 0 0 10px aquamarine;">~La unión musical~</h2> 
+    <div class="flex-block">
+        <img src="LOgo fachero.png" alt="Logo Fachero" class="img-card" style="max-height: 400px;">
+        <p class="text-body">Cuando finalmente se reencontraron, Marina le mostró a Perla una maqueta musical electrónica que terminaría convirtiéndose en "Ebb & Flow". Perla quedó tan impactada que aceptó formar el dúo inmediatamente. Su debut bajo el nombre de Off the Hook catapultó al grupo al estrellato masivo en Inkopolis.</p>
+    </div>
+
+    <h2 style="font-size: 45px; font-family: fantasy; color: aquamarine; text-align: center; text-shadow: 0 0 10px aquamarine;">~Cómo funcionó su amistad~</h2> 
+    <p class="text-body">La clave de su éxito radicó en la complementación perfecta de sus personalidades opuestas: la actitud rebelde e impulsiva de Perla encontró un balance absoluto con la naturaleza reservada, inteligente y analítica de Marina, creando un lazo de lealtad inquebrantable.</p>
+
+    <br><br>
+
+    <h2 style="font-size: 50px; font-family: fantasy; color: aquamarine; text-align: center; text-shadow: 0 0 12px aquamarine;">~Historia de Marina~</h2> 
+    <p class="text-body">
+        La historia de Marina Villaoctos es una de las más profundas de Splatoon. Destacó en la sociedad militar octariana graduándose con solo 9 años en la academia de élite. A los 16 años, tras escuchar la transmisión de la "Calamari Inkantation" durante el combate final de Splatoon 1, desertó del ejército en busca de libertad.
+    </p>
+
+    <div class="flex-block">
+        <p class="text-body">Años más tarde, durante la Octo Expansión, Marina se reencontró con su vieja amiga Acht en el Ordenland digital, logrando liberarla y sanar los remordimientos del pasado. El clímax absoluto de la carrera de Marina quedó guardado en el archivo que conserva con inmenso cariño: el demo original de "Ebb & Flow".</p>
+        <img src="marina IDA.jpg" alt="Marina Story" class="img-card" style="max-height: 400px;">
+    </div>
+
+    <div style="text-align: center;">
+        <audio src="♪ Ebb & Flow ＤＥＭＯ ♫ Caitlin Koi Lyric Video - Splatoon 2 Octo Expansion.mp3" loop controls></audio>
+    </div>
+
+    <br><br>
+
+    <h2 style="font-size: 50px; font-family: fantasy; color: #ff007f; text-align: center; text-shadow: 0 0 12px #ff007f;">~Historia de Perla~</h2> 
+    <p class="text-body">
+        Perla Houzuki nació en una familia millonaria de Inkopolis. A pesar de tener la vida resuelta, quería ganarse un lugar en la música por su propia cuenta. Nació con unas cuerdas vocales superdesarrolladas que provocaron una onda destructiva durante un concurso infantil.
+    </p>
+
+    <div class="flex-block">
+        <p class="text-body">Canalizó su potente voz hacia el death metal solista lanzando su infame tema "#$@%* Dudes Be #$@%* Sleepin'", el cual fue censurado por las radios. Poco después se retiró al Monte Molusco para practicar sus gritos, lugar donde conoció a Marina, quien logró transformar esa agresividad en el icónico rap de Off the Hook.</p>
+        <img src="perla temblor.png" alt="Perla Temblor" class="img-card" style="max-height: 350px;">
+    </div>
+
+    <div style="text-align: center;">
+        <audio src="PERL GRSRAAAAA.mp3" loop controls></audio>
+    </div>
+
+    <br><br><br><br><br><br><br>
+
+<b>
+
+
+    <footer style="color: #55f7ff; text-shadow: 0 0 20px #00f3ff; font-size: 40px; font-family: fantasy; text-align: center; justify-content: center;" >
+
+        Najera Montoya Erick Sebastian <br>
+        Portillo Pinacho Mauricio Daniel.
+    
+    
+    </footer>
+
+
+</b>
+
+
+
+</div>
+</div>
+
+</body>
+</html>
+
